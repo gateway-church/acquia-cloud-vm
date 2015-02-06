@@ -31,16 +31,39 @@
     - { role: geerlingguy.php-xhprof, tags: ['php'] }
     - { role: geerlingguy.phpmyadmin, tags: ['phpmyadmin'] }
     - { role: geerlingguy.composer, tags: ['composer'] }
-    - { role: geerlingguy.drush, tags: ['drush'] }
+    - { role: geerlingguy.drush, tags: ['drush'], drush_version: '6.5.0', drush_keep_updated: true }
     - { role: geerlingguy.daemonize, tags: ['mail'] }
     - { role: geerlingguy.mailhog, tags: ['mail'] }
 
   tasks:
+    - name: Install Acquia drush aliaes
+      unarchive: src="{{ acquiacloud_aliases }}" dest=/home/vagrant/ 
+    
+    - name: Install extra drush aliases
+      copy: src="{{gwp_aliases}}" dest="/home/vagrant/.drush/{{gwp_aliases}}" owner=vagrant group=vagrant mode=0600 backup=yes 
+
+    - name: Fix unix permissions on .drush
+      file: path=/home/vagrant/.drush owner=vagrant group=vagrant recurse=yes state=directory
+
+    - name: Fix unix permissions on .acquia
+      file: path=/home/vagrant/.acquia owner=vagrant group=vagrant recurse=yes state=directory
+
+    - name: Install ssh private key
+      copy: src="{{ ssh_private_key }}" dest=/home/vagrant/.ssh/id_rsa owner=vagrant group=vagrant mode=0400 backup=yes 
+
+    - name: Install ssh public key
+      copy: src="{{ ssh_public_key }}" dest=/home/vagrant/.ssh/id_rsa.pub owner=vagrant group=vagrant mode=0400 backup=yes 
+
     - name: Remove default Apache virtualhost file.
       file: >
         path=/etc/apache2/sites-enabled/000-default
         state=absent
       notify: restart webserver
+
+    - name: Enable the headers module
+      apache2_module:
+        state: present
+        name: headers
 
     - name: Ensure networking tools are installed.
       apt: "name={{ item }} state=installed"
@@ -65,3 +88,4 @@
       with_items:
         - vim
         - emacs
+
