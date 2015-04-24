@@ -89,3 +89,5 @@
         - vim
         - emacs
 
+    - name: Link daemonize into /usr/sbin
+      file: src=/usr/local/sbin/daemonize dest=/usr/sbin/daemonize state=link
