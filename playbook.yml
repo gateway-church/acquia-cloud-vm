@@ -74,6 +74,12 @@
         - traceroute
         - tcpdump
 
+    - name: Extend varnish .first_byte_timeout
+      lineinfile: >
+        dest=/etc/varnish/default.vcl
+        insertbefore='^}'
+        line='  .first_byte_timeout = 300s;'
+
     - name: Ensure performance analysis tools are installed.
       apt: "name={{ item }} state=installed"
       with_items:
