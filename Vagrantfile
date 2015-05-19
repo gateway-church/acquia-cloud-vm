@@ -38,7 +38,7 @@ Vagrant.configure("2") do |config|
   end
 
   # Set the name of the VM. See: http://stackoverflow.com/a/17864388/100134
-  config.vm.define :cloudvm do |cloudvm_config|
+  config.vm.define :gwayppl do |cloudvm_config|
   end
 
 end
