@@ -34,6 +34,8 @@
     - { role: geerlingguy.drush, tags: ['drush'], drush_version: '6.5.0', drush_keep_updated: true }
     - { role: geerlingguy.daemonize, tags: ['mail'] }
     - { role: geerlingguy.mailhog, tags: ['mail'] }
+    - { role: geerlingguy.java, tags: ['solr'] }
+    - { role: geerlingguy.solr, tags: ['solr'] }
 
   tasks:
     - name: Install Acquia drush aliaes
@@ -55,10 +57,13 @@
       copy: src="{{ ssh_public_key }}" dest=/home/vagrant/.ssh/id_rsa.pub owner=vagrant group=vagrant mode=0400 backup=yes 
 
     - name: Remove default Apache virtualhost file.
-      file: >
-        path=/etc/apache2/sites-enabled/000-default
-        state=absent
+      file:
+        path: "{{ item }}"
+        state: absent
       notify: restart webserver
+      with_items:
+        - /etc/apache2/sites-enabled/000-default
+        - /etc/apache2/sites-enabled/000-default.conf
 
     - name: Enable the headers module
       apache2_module:
@@ -88,6 +93,11 @@
         - sysstat # includes netstat
         - lsof
         - strace
+
+    - name: Ensure other helpful software is installed.
+      apt: "name={{ item }} state=installed"
+      with_items:
+        - imagemagick
 
     - name: Ensure development tools are installed.
       apt: "name={{ item }} state=installed"
