@@ -38,7 +38,7 @@ apache_vhosts:
   - servername: "local.xhprof.com"
     documentroot: "/usr/share/php/xhprof_html"
 
-php_version: "5.3"
+php_version: "5.5"
 php_memory_limit: "256M"
 php_display_errors: "On"
 php_realpath_cache_size: "1024K"
