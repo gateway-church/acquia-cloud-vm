@@ -1,0 +1,23 @@
+ - src: geerlingguy.firewall
+ - src: geerlingguy.git
+ - src: geerlingguy.apache
+ - src: geerlingguy.mysql
+ - src: geerlingguy.varnish
+ - src: geerlingguy.memcached
+ - src: geerlingguy.php
+   version: 2.0.3
+ - src: geerlingguy.php-pecl
+ - src: geerlingguy.php-mysql
+   version: 1.2.0
+ - src: geerlingguy.php-memcached
+   version: 1.1.0
+ - src: geerlingguy.php-xdebug
+ - src: geerlingguy.php-xhprof
+   version: 2.1.0
+ - src: geerlingguy.phpmyadmin
+ - src: geerlingguy.composer
+ - src: geerlingguy.drush
+ - src: geerlingguy.daemonize
+ - src: geerlingguy.mailhog
+ - src: geerlingguy.java
+ - src: geerlingguy.solr
