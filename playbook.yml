@@ -133,19 +133,21 @@
       command: drush updatedb --yes chdir=/drupal/sites/gwp
       sudo: false
 
-    - name: Disable CDN
-      command: drush pm-disable --yes cdn chdir=/drupal/sites/gwp
-      sudo: false
-
     - name: Install Stage File Proxy
       command: drush pm-enable --yes stage_file_proxy chdir=/drupal/sites/gwp
       sudo: false
 
-    - name: Configure Stage File Proxy
-      command: drush variable-set {{ item }} chdir=/drupal/sites/gwp
+    - name: Configure Drupal
+      command: drush variable-set --yes {{ item }} chdir=/drupal/sites/gwp
       with_items:
-        - stage_file_proxy_origin "http://gatewaypeople.com" 
+        - cdn_basic_mapping "http://cf.local.gatewaypeople.com/"
+        - cdn_https_support FALSE
+        - s3fs_domain "cf-dev.gatewaypeople.com"
+        - s3fs_root_folder "dev"
+        - stage_file_proxy_origin "http://cf.gatewaypeople.com" 
         - stage_file_proxy_hotlink TRUE 
+        - stage_file_proxy_use_imagecache_root TRUE
+        - stage_file_proxy_sslversion 3
       sudo: false
 
     - name: Clear Cache
