@@ -7,10 +7,26 @@ if !File.exist?('./config.yml')
 end
 vconfig = YAML::load_file("./config.yml")
 
+if ! vconfig['acquia_ssh_private_key']
+  raise 'Configuration variable not found! Please set acquia_ssh_private_key in config.yml and try again.'
+end
+
+# Check add the private key to ssh if it is missing
+added_keys = `ssh-add -l`
+private_key = File.expand_path(vconfig['acquia_ssh_private_key'])
+if ! added_keys.include? private_key
+  system 'ssh-add', private_key
+  check_added_keys = `ssh-add -l`
+  if ! check_added_keys.include? private_key
+    raise "#{private_key} wasn't added"
+  end
+end
+
 Vagrant.configure("2") do |config|
   config.vm.hostname = vconfig['vagrant_hostname']
   config.vm.network :private_network, ip: vconfig['vagrant_ip']
   config.ssh.insert_key = false
+  config.ssh.forward_agent = true
 
   config.vm.box = "geerlingguy/ubuntu1204"
 
