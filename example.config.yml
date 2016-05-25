@@ -2,6 +2,9 @@
 # Vagrant hostname and IP configuration.
 vagrant_hostname: local.gatewaypeople.com
 vagrant_ip: 192.168.4.40
+vagrant_aliases:
+  - "cf.local.gatewaypeople.com"
+  - "local.xhprof.com"
 
 # A list of synced folders, with the keys 'local_path', 'destination', and 'id'.
 vagrant_synced_folders:
@@ -34,6 +37,8 @@ varnish_storage: "malloc,256m"
 apache_listen_port: 8080
 apache_vhosts:
   - servername: "local.gatewaypeople.com"
+    documentroot: "/drupal"
+  - servername: "cf.local.gatewaypeople.com"
     documentroot: "/drupal"
   - servername: "local.xhprof.com"
     documentroot: "/usr/share/php/xhprof_html"
