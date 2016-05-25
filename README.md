@@ -25,8 +25,10 @@ The following is included inside this VM:
     - `$ brew cask install virtualbox vagrant`
     - `$ brew install ansible`
   2. Install all the roles required by this playbook with the command `$ ansible-galaxy install -r requirements.yml`
-  2. Copy `example.config.yml` to `config.yml` (your local `config.yml` will be ignored by Git and you can modify it to suit your needs).
-  3. (From the same directory as this README file) run `$ vagrant up`
+  3. Copy `example.config.yml` to `config.yml` (your local `config.yml` will be ignored by Git and you can modify it to suit your needs) or apply changes by hand from `example.config.yml`.
+  4. Install the sudo commands vagrant-hostsupdater needs:
+    - `sudo mkdir -p /private/etc/sudoers.d/ && cp sudo-vagrant_hosts /private/etc/sudoers.d/vagrant_hosts`
+  5. (From the same directory as this README file) run `$ vagrant up`
 
 *This assumes you have [Homebrew](http://brew.sh/) installed and have `cask` installed (`brew tap caskroom/cask && brew install brew-cask` to install). On a Linux or Windows computer, you will need to install VirtualBox, Vagrant and Ansible according to the linked guides in step 1. This VM is not currently supported on Windows, but if you'd like support, please file an issue.*
 
