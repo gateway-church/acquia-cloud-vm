@@ -28,7 +28,7 @@ Vagrant.configure("2") do |config|
   config.ssh.insert_key = false
   config.ssh.forward_agent = true
 
-  config.vm.box = "geerlingguy/ubuntu1204"
+  config.vm.box = "geerlingguy/ubuntu1404"
 
   for synced_folder in vconfig['vagrant_synced_folders'];
     config.vm.synced_folder synced_folder['local_path'], synced_folder['destination'],
