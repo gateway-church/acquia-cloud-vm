@@ -129,10 +129,6 @@
       command: drush sql-sync --yes @gwayppl.prod.gwp @self chdir=/drupal/sites/gwp
       sudo: false
 
-    - name: Update DB
-      command: drush updatedb --yes chdir=/drupal/sites/gwp
-      sudo: false
-
     - name: Install Stage File Proxy
       command: drush pm-enable --yes stage_file_proxy chdir=/drupal/sites/gwp
       sudo: false
@@ -148,6 +144,8 @@
         - stage_file_proxy_hotlink TRUE 
         - stage_file_proxy_use_imagecache_root TRUE
         - stage_file_proxy_sslversion 3
+        - file_private_path '/tmp'
+        - file_temporary_path '/tmp'
       sudo: false
 
     - name: Clear Cache
