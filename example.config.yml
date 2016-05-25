@@ -66,6 +66,6 @@ mysql_databases:
 
 solr_version: '3.6.2'
 
-acquia_ssh_private_key: ~/.ssh/acquia_rsa
+acquia_ssh_private_key: ~/.ssh/id_rsa
 acquiacloud_aliases: ~/Downloads/acquiacloud.tar.gz
 gwp_aliases: aliases.drushrc.php
