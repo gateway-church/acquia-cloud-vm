@@ -1,0 +1,6 @@
+Host *
+	ServerAliveInterval 120
+
+Host *.hosting.acquia.com
+	StrictHostKeyChecking no
+	ForwardAgent yes
