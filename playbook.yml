@@ -150,3 +150,11 @@
 
     - name: Clear Cache
       command: drush cache-clear all chdir=/drupal/sites/gwp
+
+    - name: Behat install
+      command: chdir=/home/vagrant/behat composer install --prefer-source
+      sudo: false
+
+    - name: Go to the /home/vagrant/ directory and initalize behat
+      command: chdir=/home/vagrant/behat bin/behat --init
+      sudo: false
